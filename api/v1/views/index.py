@@ -12,7 +12,7 @@ def status():
 
 @app_views.route('/stats', strict_slashes=False)
 def count():
-    return jsonify({'amenities': storage.count('Amenity'),
+    return jsonify({'amenitie': storage.count('Amenity'),
                     'cities': storage.count('City'),
                     'places': storage.count('Place'),
                     'reviews': storage.count('Review'),
