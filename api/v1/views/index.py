@@ -8,11 +8,11 @@ from models import storage
 
 @app_views.route('/status', strict_slashes=False)
 def status():
-    return jsonify({'status': 'OK'})
+    return jsonify({'statu': 'OK'})
 
 @app_views.route('/stats', strict_slashes=False)
 def count():
-    return jsonify({'amenitie': storage.count('Amenity'),
+    return jsonify({'amenities': storage.count('Amenity'),
                     'cities': storage.count('City'),
                     'places': storage.count('Place'),
                     'reviews': storage.count('Review'),
