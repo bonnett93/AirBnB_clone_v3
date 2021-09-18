@@ -3,7 +3,7 @@
 Contains the class DBStorage
 """
 
-from flask import Blueprint, render_template, abort, request
+from flask import Blueprint, render_template, abort, request, make_response
 from flask import Flask, jsonify
 from models import storage
 from api.v1.views import app_views
@@ -18,11 +18,11 @@ def states():
 
 @app_views.route('/states/<string:state_id>', methods=['GET'], strict_slashes=False)
 def state_id(state_id):
-    state = storage.get('State', state_id)
+    state = storage.get(State, state_id)
     if state is None:
         abort(404)
     else:
-        return jsonify(state.do_dict())
+        return jsonify(state.to_dict())
 
 @app_views.route('/states/<string:state_id>', methods=['DELETE'], strict_slashes=False)
 def delete_state(state_id):
@@ -39,7 +39,8 @@ def post_state():
     if not json_d:
         return jsonify({"error": "Not a JSON"}), 400
     name_s = json_d.get('name')
-    if name is None:
+    # name
+    if name_s is None:
         return jsonify({"error": "Missing name"}), 400
     new_s = State(**json_d)
     new_s.save()
@@ -49,11 +50,14 @@ def post_state():
 def put_state(state_id):
     state = storage.get('State', state_id)
     if state is None:
-        raise Http404
+        # raise Http404
+        abort (404)
     json_d = request.get_json()
     if not json_d:
         return jsonify({"error": "Not a JSON"}), 400
-    for key, value in json_data.items():
+
+    # json_data x -> json_d
+    for key, value in json_d.items():
         if key not in ['id', 'created_at', 'updated_at']:
             setattr(state, key, value)
     state.save()
