@@ -44,7 +44,7 @@ def post_state():
         return jsonify({"error": "Missing name"}), 400
     new_s = State(**json_d)
     new_s.save()
-    return make_response(jsonify(new_s.do_dict()), 201)
+    return make_response(jsonify(new_s.to_dict()), 201)
 
 @app_views.route('/states/<string:state_id>', methods=['PUT'], strict_slashes=False)
 def put_state(state_id):
