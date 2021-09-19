@@ -3,11 +3,10 @@
 Contains the class DBStorage
 """
 
+from flask import jsonify, abort, request, make_response
+from api.v1.views import app_views
 from models import storage
 from models.state import State
-from api.v1.views import app_views
-from flask import Blueprint, render_template, abort, request, make_response
-from flask import Flask, jsonify
 
 
 @app_views.route('/states', methods=['GET'], strict_slashes=False)

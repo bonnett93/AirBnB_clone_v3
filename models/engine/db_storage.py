@@ -82,7 +82,6 @@ class DBStorage:
         cls_objs = self.all(cls)
         key = cls.__name__ + '.' + id
         if key in cls_objs:
-            del cls_objs[key].__dict__['_sa_instance_state']
             return cls_objs[key]
         else:
             return None
