@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Handles all default RESTFul API actions for State objects
+Handles all default RESTFul API actions for User objects
 """
 
 from flask import jsonify, abort, request, make_response
@@ -8,11 +8,12 @@ from api.v1.views import app_views
 from models import storage
 from models.user import User
 
+
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
 def users():
-    """Retrieves the list of all State objects"""
+    """Retrieves the list of all User objects"""
     users = []
-    for user in storage.all('User').values():
+    for user in storage.all(User).values():
         users.append(user.to_dict())
     return jsonify(users)
 
@@ -20,7 +21,7 @@ def users():
 @app_views.route('/users/<string:user_id>', methods=['GET'],
                  strict_slashes=False)
 def user_id(user_id):
-    """Retrieves a State object by id"""
+    """Retrieves a User object by id"""
     user = storage.get(User, user_id)
     if user is None:
         abort(404)
@@ -31,35 +32,37 @@ def user_id(user_id):
 @app_views.route('/users/<string:user_id>', methods=['DELETE'],
                  strict_slashes=False)
 def delete_user(user_id):
-    """Deletes a State object"""
+    """Deletes a User object"""
     user = storage.get(User, user_id)
-    if use is None:
+    if user is None:
         abort(404)
     storage.delete(user)
     storage.save()
     empty = jsonify({})
     return (empty), 200
 
+
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
 def post_user():
-    """Creates a State"""
+    """Creates a User"""
     json_d = request.get_json()
     if not json_d:
         return jsonify({"error": "Not a JSON"}), 400
-    email = json_data.get("email")
+    email = json_d.get("email")
     if email is None:
         return jsonify({"message": "Missing email"}), 400
-    password = json_data.get("password")
+    password = json_d.get("password")
     if password is None:
         return jsonify({"message": "Missing password"}), 400
     new_u = User(**json_d)
     new_u.save()
     return make_response(jsonify(new_u.to_dict()), 201)
 
+
 @app_views.route('/users/<string:user_id>', methods=['PUT'],
                  strict_slashes=False)
 def put_user(user_id):
-    """Updates a State object"""
+    """Updates a User object"""
     user = storage.get(User, user_id)
     if user is None:
         abort(404)
