@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Contains the class DBStorage
+Handles all default RESTFul API actions for State objects
 """
 
 from flask import jsonify, abort, request, make_response
@@ -72,4 +72,4 @@ def put_state(state_id):
             setattr(state, key, value)
 
     storage.save()
-    return jsonify(state.to_dict())
+    return jsonify(state.to_dict()), 200
