@@ -22,7 +22,7 @@ def get_places_list(city_id):
         all_places = storage.all(Place)
         for place in all_places.values():
             if place.city_id == city.id:
-                city_places.append(city.to_dict())
+                city_places.append(place.to_dict())
         return jsonify(city_places)
     else:
         abort(404)
