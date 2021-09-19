@@ -33,7 +33,7 @@ def delete_amenity(amenity_id):
     amenity = storage.get(Amenity, amenity_id)
     if amenity is None:
         abort(404)
-    storage.delete(state)
+    storage.delete(amenity)
     storage.save()
     empty = jsonify({})
     return (empty), 200
@@ -57,7 +57,7 @@ def post_amenity():
                  strict_slashes=False)
 def put_amenity(amenity_id):
     """Updates a Amenity object"""
-    amenity = storage.get(State, state_id)
+    amenity = storage.get(Amenity, amenity_id)
     if amenity is None:
         abort(404)
     json_d = request.get_json()
