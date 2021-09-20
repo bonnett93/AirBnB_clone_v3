@@ -68,6 +68,7 @@ def create_review(place_id):
         abort(404)
     if 'text' not in json_d:
         abort(400, "Missing text")
+
     review = Review(**json_d)
     review.place_id = place_id
     review.save()
