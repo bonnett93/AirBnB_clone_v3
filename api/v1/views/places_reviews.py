@@ -26,3 +26,12 @@ def get_review_list(place_id):
     else:
         abort(404)
 
+
+@app_views.route('/reviews/<review_id>', methods=['GET'], strict_slashes=False)
+def get_review(review_id):
+    """Retrieves a Review object"""
+    review = storage.get(Review, review_id)
+    if review:
+        return jsonify(review.to_dict())
+    else:
+        abort(404)
