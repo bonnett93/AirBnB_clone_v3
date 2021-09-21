@@ -10,14 +10,15 @@ from models.user import User
 from models.review import Review
 from models import storage
 from models.amenity import Amenity
+from os import getenv
 
 @app_views.route('/places/<place_id>/amenities', methods=['GET'],
                  strict_slashes=False)
 def get_a(place_id):
     """Retrieves the list of all Reviews objects of a Place"""
-    amenities = []
     place = storage.get(Place, place_id)
     if place:
+        amenities = []
         if getenv('HBNB_TYPE_STORAGE') == 'db':
             list_a = place.amenities
         else:
