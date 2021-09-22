@@ -12,6 +12,7 @@ from models import storage
 from models.amenity import Amenity
 from os import getenv
 
+
 @app_views.route('/places/<place_id>/amenities', methods=['GET'],
                  strict_slashes=False)
 def get_a(place_id):
@@ -29,7 +30,9 @@ def get_a(place_id):
     else:
         abort(404)
 
-@app_views.route('/places/<place_id>/amenities/<amenity_id>', methods=['DELETE'],
+
+@app_views.route('/places/<place_id>/amenities/<amenity_id>',
+                 methods=['DELETE'],
                  strict_slashes=False)
 def delete_a(place_id, amenity_id):
     place = storage.get(Place, place_id)
@@ -45,6 +48,7 @@ def delete_a(place_id, amenity_id):
     list_a.remove(amenity)
     place.save()
     return jsonify({})
+
 
 @app_views.route('/places/<place_id>/amenities/<amenity_id>', methods=['POST'],
                  strict_slashes=False)
