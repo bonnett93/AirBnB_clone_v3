@@ -79,7 +79,7 @@ def create_review(place_id):
 def update_review(review_id):
     """Updates a Place object"""
     review = storage.get(Review, review_id)
-    if not review_id:
+    if review is None:
         abort(404)
     json_d = request.get_json()
     if not json_d:
